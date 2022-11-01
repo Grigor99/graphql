@@ -33,6 +33,7 @@ input EmployeeFilter {
   salary: FilterField
   age: FilterField
   position: FilterField
+  firstName: FilterField
 }
 
 input FilterField {

@@ -1,17 +1,18 @@
 package pl.piomin.samples.spring.graphql.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Employee {
 	@Id
 	@GeneratedValue
@@ -23,7 +24,22 @@ public class Employee {
 	private int salary;
 	private int age;
 	@ManyToOne(fetch = FetchType.LAZY)
+	@ToString.Exclude
 	private Department department;
 	@ManyToOne(fetch = FetchType.LAZY)
+	@ToString.Exclude
 	private Organization organization;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		Employee employee = (Employee) o;
+		return id != null && Objects.equals(id, employee.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }
