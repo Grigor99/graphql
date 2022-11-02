@@ -1,0 +1,37 @@
+scalar Date
+
+
+extend type QueryResolver {
+    cards: [Card]
+    card(id: ID!): Card!
+    cardsWithFilter(filter: CardFilter): [Card]
+
+}
+
+extend type  MutationResolver {
+    newCard(card: CardInput!): Card
+}
+
+input CardFilter {
+    cvv: FilterField
+    fullName: FilterField
+    number: FilterField
+    validThrough: FilterField
+}
+input CardInput {
+    number:String!
+    fullName: String!
+    cvv: String!
+    validThrough:Date!
+}
+
+type Card{
+    id:ID!
+    number:String!
+    fullName:String!
+    cvv:String!
+    validThrough: Date!
+}
+
+
+
