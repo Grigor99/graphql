@@ -24,14 +24,24 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
         this.accountRepository = accountRepository;
     }
 
-    public Iterable<Account> accounts(DataFetchingEnvironment dataFetchingEnvironment){
+    public Iterable<Account> accounts(DataFetchingEnvironment dataFetchingEnvironment) {
         DataFetchingFieldSelectionSet s = dataFetchingEnvironment.getSelectionSet();
         if (s.contains("employee"))
-           return accountRepository.findAll(fetchEmployees());
+            return accountRepository.findAll(fetchEmployees());
         else {
             return accountRepository.findAll();
         }
     }
+
+    public Iterable<Account> getEmployeesByNumberLike(String number) {
+        Specification<Account> spec = byNumberLike(number);
+        if (spec != null) {
+            accountRepository.findAll(spec);
+        }
+        return accountRepository.findAll();
+
+    }
+
     public Account account(Integer id, DataFetchingEnvironment environment) {
         Specification<Account> spec = byId(id);
         DataFetchingFieldSelectionSet selectionSet = environment.getSelectionSet();
@@ -48,6 +58,12 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
             return join.getOn();
         };
     }
+
+    private Specification<Account> byNumberLike(String number) {
+        return (Specification<Account>) (root, query, builder) -> builder.like(root.get("number"), number);
+    }
+
+
     private Specification<Account> byId(Integer id) {
         return (Specification<Account>) (root, query, builder) -> builder.equal(root.get("id"), id);
     }

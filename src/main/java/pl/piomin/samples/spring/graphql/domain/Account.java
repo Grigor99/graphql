@@ -8,12 +8,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Account {
     @Id
@@ -23,11 +20,7 @@ public class Account {
 
     private String number;
 
-    private Integer grade;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     private Employee employee;
 
 

@@ -8,12 +8,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-//@NoArgsConstructor
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Employee {
 	@Id
 	@GeneratedValue
@@ -27,25 +25,11 @@ public class Employee {
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@ToString.Exclude
 	private Department department;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@ToString.Exclude
 	private Organization organization;
 
 	@OneToMany(mappedBy = "employee")
-	@ToString.Exclude
 	private Set<Account> accounts;
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		Employee employee = (Employee) o;
-		return id != null && Objects.equals(id, employee.id);
-	}
 
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }
