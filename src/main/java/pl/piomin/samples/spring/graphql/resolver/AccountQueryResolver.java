@@ -10,9 +10,7 @@ import pl.piomin.samples.spring.graphql.domain.Department;
 import pl.piomin.samples.spring.graphql.domain.Employee;
 import pl.piomin.samples.spring.graphql.repository.AccountRepository;
 
-import javax.persistence.criteria.Fetch;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.*;
 import java.util.NoSuchElementException;
 
 
@@ -35,6 +33,7 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
 
     public Iterable<Account> getEmployeesByNumberLike(String number) {
         Specification<Account> spec = byNumberLike(number);
+
         if (spec != null) {
             accountRepository.findAll(spec);
         }
@@ -60,7 +59,10 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
     }
 
     private Specification<Account> byNumberLike(String number) {
-        return (Specification<Account>) (root, query, builder) -> builder.like(root.get("number"), number);
+        return (Specification<Account>) (Root<Account> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            query.groupBy(root.get("number"),root.get("id"));
+            return builder.like(root.get("number"), number);
+        };
     }
 
 

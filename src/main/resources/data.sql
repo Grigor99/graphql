@@ -20,7 +20,11 @@ insert into employee (id, first_name, last_name, position, salary, age, departme
 insert into employee (id, first_name, last_name, position, salary, age, department_id, organization_id) values (5, 'Peter', 'Wright', 'Director', 50000, 50, 4, 2);
 insert into employee (id, first_name, last_name, position, salary, age, department_id, organization_id) values (6, 'Alan', 'Murray', 'Developer', 20000, 37, 4, 2);
 insert into employee (id, first_name, last_name, position, salary, age, department_id, organization_id) values (7, 'Pamela', 'Anderson', 'Analyst', 7000, 27, 4, 2);
-insert into account(id, number,employee_id) values (1, '4444343',1);
-insert into account(id, number,employee_id) values (2, '444435543',2);
-insert into account(id, number,employee_id) values (3, '4444556343',3);
+insert into account(id, number,employee_id) values (1, '22222',1);
+insert into account(id, number,employee_id) values (2, '33333',2);
+insert into account(id, number,employee_id) values (3, '44444',3);
+insert into account(id, number,employee_id) values (4, '44444',4);
+insert into account(id, number,employee_id) values (5, '33333',5);
+
+
 
