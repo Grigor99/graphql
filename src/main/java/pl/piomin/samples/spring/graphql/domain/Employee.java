@@ -29,7 +29,7 @@ public class Employee {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Organization organization;
 
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
 	private Set<Account> accounts;
 
 }
