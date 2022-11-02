@@ -1,7 +1,8 @@
 extend type QueryResolver{
     accounts:[Account]
     account(id:ID!):Account
-    getEmployeesByNumberLike(number:String!):[Account]
+    getAccountsByNumberLike(number:String!):[Account]
+    getAccountsByIdIn(ids:[Int]!):[Account]
 }
 extend type MutationResolver{
     newAccount(account:AccountInput!):Account

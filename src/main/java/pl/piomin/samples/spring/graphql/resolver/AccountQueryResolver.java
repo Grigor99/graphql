@@ -11,6 +11,7 @@ import pl.piomin.samples.spring.graphql.domain.Employee;
 import pl.piomin.samples.spring.graphql.repository.AccountRepository;
 
 import javax.persistence.criteria.*;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -31,7 +32,7 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
         }
     }
 
-    public Iterable<Account> getEmployeesByNumberLike(String number) {
+    public Iterable<Account> getAccountsByNumberLike(String number) {
         Specification<Account> spec = byNumberLike(number);
 
         if (spec != null) {
@@ -39,6 +40,11 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
         }
         return accountRepository.findAll();
 
+    }
+
+    public Iterable<Account> getAccountsByIdIn(List<Integer> ids) {
+        Specification<Account> spec = byIdIn(ids);
+        return accountRepository.findAll(spec);
     }
 
     public Account account(Integer id, DataFetchingEnvironment environment) {
@@ -60,8 +66,14 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
 
     private Specification<Account> byNumberLike(String number) {
         return (Specification<Account>) (Root<Account> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
-            query.groupBy(root.get("number"),root.get("id"));
+            query.groupBy(root.get("number"), root.get("id"));
             return builder.like(root.get("number"), number);
+        };
+    }
+
+    private Specification<Account> byIdIn(List<Integer> ids) {
+        return (Specification<Account>) (Root<Account> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            return root.get("id").in(ids);
         };
     }
 
