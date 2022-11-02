@@ -16,7 +16,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Organization {
 	@Id
 	@GeneratedValue

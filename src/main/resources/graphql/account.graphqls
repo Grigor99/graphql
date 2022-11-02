@@ -1,0 +1,17 @@
+extend type QueryResolver{
+    accounts:[Account]
+    account(id:ID!):Account
+}
+extend type MutationResolver{
+    newAccount(account:AccountInput!):Account
+}
+input AccountInput{
+    number:String!
+    employeeId:Int
+}
+type Account{
+    id:ID!
+    number:String
+    employee:Employee
+}
+

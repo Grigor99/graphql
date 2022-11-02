@@ -5,13 +5,14 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
 	@Id
@@ -23,6 +24,8 @@ public class Employee {
 	private String position;
 	private int salary;
 	private int age;
+
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@ToString.Exclude
 	private Department department;
@@ -30,6 +33,9 @@ public class Employee {
 	@ToString.Exclude
 	private Organization organization;
 
+	@OneToMany(mappedBy = "employee")
+	@ToString.Exclude
+	private Set<Account> accounts;
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

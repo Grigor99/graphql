@@ -27,6 +27,7 @@ type Employee {
   age: Int
   department: Department
   organization: Organization
+  accounts:[Account]
 }
 
 input EmployeeFilter {
