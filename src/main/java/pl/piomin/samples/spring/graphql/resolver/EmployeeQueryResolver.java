@@ -1,12 +1,21 @@
 package pl.piomin.samples.spring.graphql.resolver;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.schema.DataFetchingEnvironment;
+import graphql.schema.DataFetchingFieldSelectionSet;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import pl.piomin.samples.spring.graphql.domain.Account;
+import pl.piomin.samples.spring.graphql.domain.Department;
 import pl.piomin.samples.spring.graphql.domain.Employee;
+import pl.piomin.samples.spring.graphql.domain.Organization;
 import pl.piomin.samples.spring.graphql.filter.EmployeeFilter;
 import pl.piomin.samples.spring.graphql.filter.FilterField;
 import pl.piomin.samples.spring.graphql.repository.EmployeeRepository;
+
+import javax.persistence.criteria.Fetch;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 
 @Component
 public class EmployeeQueryResolver implements GraphQLQueryResolver {
@@ -58,4 +67,6 @@ public class EmployeeQueryResolver implements GraphQLQueryResolver {
     private Specification<Employee> byFirstName(FilterField filterField) {
         return (Specification<Employee>) (root, query, builder) -> filterField.generateCriteria(builder, root.get("firstName"));
     }
+
+
 }

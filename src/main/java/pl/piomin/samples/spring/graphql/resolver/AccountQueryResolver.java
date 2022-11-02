@@ -43,8 +43,8 @@ public class AccountQueryResolver implements GraphQLQueryResolver {
     }
 
     public Iterable<Account> getAccountsByIdIn(List<Integer> ids) {
-        Specification<Account> spec = byIdIn(ids);
-        return accountRepository.findAll(spec);
+//        Specification<Account> spec = byIdIn(ids);
+        return accountRepository.findAll(Specification.where(byIdIn(ids)));
     }
 
     public Account account(Integer id, DataFetchingEnvironment environment) {
