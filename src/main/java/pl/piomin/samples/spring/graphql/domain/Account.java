@@ -22,6 +22,7 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
+    //during accounts request if you want to get employee's info besides id then fetch should be Eager
 
 
 }
